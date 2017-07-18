@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Maxiplus Mobile</string>
+    <string name="mainactivity_login">Já é nosso cliente? Preencha seu login e senha para acessar nossos serviços.</string>
+    <string name="mainactivity_edit_login">login</string>
+    <string name="mainactivity_edit_pass">senha</string>
+</resources>
