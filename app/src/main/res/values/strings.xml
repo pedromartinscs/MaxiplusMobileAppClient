@@ -3,4 +3,5 @@
     <string name="mainactivity_login">Already our customer? Fill in your login and password to access our services.</string>
     <string name="mainactivity_edit_login">login</string>
     <string name="mainactivity_edit_pass">password</string>
+    <string name="mainactivity_button">Sign In</string>
 </resources>

@@ -4,4 +4,5 @@
     <string name="mainactivity_login">¿Ya es nuestro cliente? Rellene su nombre de usuario y contraseña para acceder a nuestros servicios.</string>
     <string name="mainactivity_edit_login">usuario</string>
     <string name="mainactivity_edit_pass">contraseña</string>
+    <string name="mainactivity_button">Iniciar sesión</string>
 </resources>
