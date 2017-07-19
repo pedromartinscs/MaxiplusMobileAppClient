@@ -5,4 +5,5 @@
     <string name="mainactivity_edit_login">login</string>
     <string name="mainactivity_edit_pass">senha</string>
     <string name="mainactivity_button">Entrar</string>
+    <string name="mainactivity_new_customer">Cliente novo? Clique aqui para inscrever-se.</string>
 </resources>
