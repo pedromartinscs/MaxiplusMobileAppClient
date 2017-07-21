@@ -10,16 +10,28 @@ package br.com.nancode.maxiplusmobileappclient;
         import java.net.URL;
         import java.net.URLConnection;
         import java.net.URLEncoder;
+        import java.text.SimpleDateFormat;
+        import java.util.ArrayList;
+        import java.util.Calendar;
+        import java.util.List;
 
-
+        import android.app.Activity;
+        import android.content.Intent;
         import android.os.AsyncTask;
         import android.widget.TextView;
 
+        import org.json.JSONException;
+        import org.json.JSONObject;
+        import br.com.nancode.maxiplusmobileappclient.Model.userModel;
+        import br.com.nancode.maxiplusmobileappclient.Repository.userRepository;
+
 public class SigninActivity extends AsyncTask<String, Void, String>{
     private TextView statusField;
+    private Activity activity;
 
-    public SigninActivity(TextView statusField) {
+    public SigninActivity(TextView statusField, Activity activity) {
         this.statusField = statusField;
+        this.activity = activity;
     }
 
     protected void onPreExecute(){
@@ -33,9 +45,9 @@ public class SigninActivity extends AsyncTask<String, Void, String>{
             String password = (String)params[1];
 
             String link="http://www.maxiplusseguros.com.br/MaxiMobileWebServer/login.php";
-            String data  = URLEncoder.encode("username", "UTF-8") + "=" +
+            String data  = URLEncoder.encode("user", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");
-            data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +
+            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" +
                     URLEncoder.encode(password, "UTF-8");
 
             URL url = new URL(link);
@@ -71,8 +83,38 @@ public class SigninActivity extends AsyncTask<String, Void, String>{
         }
         else {
             this.statusField.setText(R.string.mainactivity_success_login);
-        }
+            try {
+                JSONObject jObject = new JSONObject(result);
+                List<userModel> users = new ArrayList<userModel>();
+                userModel UserModel = new userModel();
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                userRepository uR = new userRepository(activity.getApplicationContext());
+                Intent intent = new Intent(activity, LoggedInActivity.class);
 
+                UserModel.setLogin(jObject.getString("us_login"));
+                UserModel.setSenha(jObject.getString("us_pass"));
+                UserModel.setId(jObject.getInt("us_ID"));
+                UserModel.setData(df.format(c.getTime()));
+
+                uR.LogOut();
+                uR.Salvar(UserModel);
+                users = uR.SelecionarTodos();
+                if(!users.isEmpty()) {
+                    UserModel = users.get(0);
+                    intent.putExtra("EXTRA_SESSION_LOGIN", UserModel.getLogin());
+                    intent.putExtra("EXTRA_SESSION_PASS", UserModel.getSenha());
+                    intent.putExtra("EXTRA_SESSION_ID_INTERNO", UserModel.getID().toString());
+                    intent.putExtra("EXTRA_SESSION_ID_EXTERNO", UserModel.getId().toString());
+                    intent.putExtra("EXTRA_SESSION_DATA", UserModel.getData());
+                    activity.startActivity(intent);
+                    activity.finish();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }
