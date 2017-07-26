@@ -9,4 +9,6 @@
     <string name="mainactivity_try_login">Tentando fazer login...</string>
     <string name="mainactivity_error_login">Desculpe-nos. Ocorreu um erro durante o login, tente novamente mais tarde.</string>
     <string name="mainactivity_success_login">Bem-vindo!</string>
+    <string name="loggedinactivity_logout">Sair</string>
+    <string name="loggedinactivity_quote">Orçamento</string>
 </resources>

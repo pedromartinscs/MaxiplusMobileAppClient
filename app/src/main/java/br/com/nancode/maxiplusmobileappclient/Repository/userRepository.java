@@ -39,7 +39,7 @@ public class userRepository {
         contentValues.put("us_login",       userModel.getLogin());
         contentValues.put("us_pass",        userModel.getSenha());
         contentValues.put("us_data",        userModel.getData());
-        contentValues.put("us_id",          userModel.getId());
+        contentValues.put("us_idexterno",          userModel.getId());
 
         /*EXECUTANDO INSERT DE UM NOVO REGISTRO*/
         databaseUtil.GetConexaoDataBase().insert("tb_user",null,contentValues);
@@ -58,7 +58,7 @@ public class userRepository {
         contentValues.put("us_login",       userModel.getLogin());
         contentValues.put("us_pass",        userModel.getSenha());
         contentValues.put("us_data",        userModel.getData());
-        contentValues.put("us_id",          userModel.getId());
+        contentValues.put("us_idexterno",          userModel.getId());
 
         /*REALIZANDO UPDATE PELA CHAVE DA TABELA*/
         databaseUtil.GetConexaoDataBase().update("tb_user", contentValues, "us_ID = ?", new String[]{Integer.toString(userModel.getID())});
@@ -92,7 +92,7 @@ public class userRepository {
 
         //ADICIONANDO OS DADOS DO USUÁRIO
         userModel.setID(cursor.getInt(cursor.getColumnIndex("us_ID")));
-        userModel.setId(cursor.getInt(cursor.getColumnIndex("us_id")));
+        userModel.setId(cursor.getInt(cursor.getColumnIndex("us_idexterno")));
         userModel.setData(cursor.getString(cursor.getColumnIndex("us_data")));
         userModel.setLogin(cursor.getString(cursor.getColumnIndex("us_login")));
         userModel.setSenha(cursor.getString(cursor.getColumnIndex("us_pass")));
@@ -113,13 +113,8 @@ public class userRepository {
 
         //MONTA A QUERY A SER EXECUTADA
         StringBuilder stringBuilderQuery = new StringBuilder();
-        stringBuilderQuery.append(" SELECT us_ID,      ");
-        stringBuilderQuery.append("        us_id,        ");
-        stringBuilderQuery.append("        us_login,    ");
-        stringBuilderQuery.append("        us_pass,        ");
-        stringBuilderQuery.append("        us_data        ");
+        stringBuilderQuery.append(" SELECT *      ");
         stringBuilderQuery.append("  FROM  tb_user       ");
-        stringBuilderQuery.append(" ORDER BY us_login       ");
 
 
         //CONSULTANDO OS REGISTROS CADASTRADOS
@@ -139,7 +134,7 @@ public class userRepository {
 
             //ADICIONANDO OS DADOS DO USUÁRIO
             userModel.setID(cursor.getInt(cursor.getColumnIndex("us_ID")));
-            userModel.setId(cursor.getInt(cursor.getColumnIndex("us_id")));
+            userModel.setId(cursor.getInt(cursor.getColumnIndex("us_idexterno")));
             userModel.setData(cursor.getString(cursor.getColumnIndex("us_data")));
             userModel.setLogin(cursor.getString(cursor.getColumnIndex("us_login")));
             userModel.setSenha(cursor.getString(cursor.getColumnIndex("us_pass")));

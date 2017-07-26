@@ -32,7 +32,7 @@ public class DatabaseUtils extends SQLiteOpenHelper {
         stringBuilderCreateTable.append("        us_ID      INTEGER PRIMARY KEY AUTOINCREMENT, ");
         stringBuilderCreateTable.append("        us_login       TEXT    NOT NULL,            ");
         stringBuilderCreateTable.append("        us_pass        TEXT    NOT NULL,            ");
-        stringBuilderCreateTable.append("        us_id      INTEGER     NOT NULL,            ");
+        stringBuilderCreateTable.append("        us_idexterno      INTEGER     NOT NULL,            ");
         stringBuilderCreateTable.append("        us_data        TEXT    NOT NULL )            ");
 
 

@@ -9,4 +9,6 @@
     <string name="mainactivity_try_login">Intentando iniciar sesión...</string>
     <string name="mainactivity_error_login">Lo sentimos. Ocurrio un error durante el inicio de sesión, vuelva a intentarlo más tarde.</string>
     <string name="mainactivity_success_login">¡Bienvenido!</string>
+    <string name="loggedinactivity_logout">Salir</string>
+    <string name="loggedinactivity_quote">Presupuesto</string>
 </resources>

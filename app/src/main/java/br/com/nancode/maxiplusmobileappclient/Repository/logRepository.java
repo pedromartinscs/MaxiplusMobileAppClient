@@ -37,7 +37,7 @@ public class logRepository {
         ContentValues contentValues =  new ContentValues();
         /*MONTANDO OS PARAMETROS PARA SEREM SALVOS*/
         contentValues.put("log_evento",       logModel.getEvento());
-        contentValues.put("log_data",         logModel.getDate());
+        contentValues.put("log_date",         logModel.getDate());
 
         /*EXECUTANDO INSERT DE UM NOVO REGISTRO*/
         databaseUtil.GetConexaoDataBase().insert("tb_log",null,contentValues);
@@ -107,11 +107,8 @@ public class logRepository {
 
         //MONTA A QUERY A SER EXECUTADA
         StringBuilder stringBuilderQuery = new StringBuilder();
-        stringBuilderQuery.append(" SELECT log_ID,      ");
-        stringBuilderQuery.append("        log_evento,        ");
-        stringBuilderQuery.append("        log_date        ");
+        stringBuilderQuery.append(" SELECT *      ");
         stringBuilderQuery.append("  FROM  tb_log       ");
-        stringBuilderQuery.append(" ORDER BY log_date ASC      ");
 
 
         //CONSULTANDO OS REGISTROS CADASTRADOS

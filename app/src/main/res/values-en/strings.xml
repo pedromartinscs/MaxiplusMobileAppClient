@@ -9,4 +9,6 @@
     <string name="mainactivity_try_login">Trying to sign in...</string>
     <string name="mainactivity_error_login">We are sorry. An error occurred during sign in, try again later.</string>
     <string name="mainactivity_success_login">Welcome!</string>
+    <string name="loggedinactivity_logout">Log out</string>
+    <string name="loggedinactivity_quote">Quote</string>
 </resources>
