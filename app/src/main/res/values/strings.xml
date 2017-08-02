@@ -10,9 +10,7 @@
     <string name="mainactivity_success_login">Welcome!</string>
     <string name="loggedinactivity_logout">Log out</string>
     <string name="loggedinactivity_quote">Quote</string>
-    <string name="title_activity_testetabulado">Testetabulado</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="loggedinactivity_user_tab_title">Profile</string>
 
     <!-- Strings related to login -->
 </resources>

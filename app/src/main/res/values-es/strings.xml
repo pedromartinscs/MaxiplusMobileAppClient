@@ -11,4 +11,5 @@
     <string name="mainactivity_success_login">¡Bienvenido!</string>
     <string name="loggedinactivity_logout">Salir</string>
     <string name="loggedinactivity_quote">Presupuesto</string>
+    <string name="loggedinactivity_user_tab_title">Perfil</string>
 </resources>

@@ -1,5 +1,7 @@
 package br.com.nancode.maxiplusmobileappclient;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +20,22 @@ import br.com.nancode.maxiplusmobileappclient.Repository.userRepository;
 
 public class LoggedInActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainTabFragment";
+    private SectionsPageAdapter mSectionsPageAdapter;
+    private ViewPager mviewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in);
+
+        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+
+        mviewPager = (ViewPager) findViewById(R.id.pager);
+        setupViewPager(mviewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mviewPager);
 
         logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
         List<logModel> logs = new ArrayList<logModel>();
@@ -64,7 +78,7 @@ public class LoggedInActivity extends AppCompatActivity {
         LoggedInActivity.this.finish();
     }
 
-    public void tarefa(View view) {
+    public void AbrirChat(View view) {
         logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
         logModel log = new logModel();
         Calendar c = Calendar.getInstance();
@@ -74,5 +88,11 @@ public class LoggedInActivity extends AppCompatActivity {
         log.setDate(df.format(c.getTime()));
 
         lR.Salvar(log);
+    }
+
+    private void setupViewPager(ViewPager viewPager){
+        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+        adapter.addFragment(new LoggedInUserFragment(), getResources().getString(R.string.loggedinactivity_user_tab_title));
+        viewPager.setAdapter(adapter);
     }
 }
