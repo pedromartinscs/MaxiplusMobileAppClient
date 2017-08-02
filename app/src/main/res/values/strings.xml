@@ -11,6 +11,7 @@
     <string name="loggedinactivity_logout">Log out</string>
     <string name="loggedinactivity_quote">Quote</string>
     <string name="loggedinactivity_user_tab_title">Profile</string>
+    <string name="loggedinactivity_car_tab_title">Car</string>
 
     <!-- Strings related to login -->
 </resources>

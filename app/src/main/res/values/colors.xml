@@ -5,4 +5,5 @@
     <color name="colorAccent">#ff7818</color>
     <color name="branco_transparente">#bbffffff</color>
     <color name="cinza_texto">#282828</color>
+    <color name="colorPrimTransparency">#7850ba9e</color>
 </resources>
