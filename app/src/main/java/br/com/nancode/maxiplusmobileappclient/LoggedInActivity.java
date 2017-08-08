@@ -36,6 +36,10 @@ public class LoggedInActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mviewPager);
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        tab.select();
+        tabLayout.bringToFront();
+
 
         logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
         List<logModel> logs = new ArrayList<logModel>();
@@ -84,7 +88,7 @@ public class LoggedInActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        log.setEvento("Usuário pressinou botão de cotações");
+        log.setEvento("Usuário pressinou botão para iniciar chat");
         log.setDate(df.format(c.getTime()));
 
         lR.Salvar(log);
@@ -93,6 +97,9 @@ public class LoggedInActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new LoggedInUserFragment(), getResources().getString(R.string.loggedinactivity_user_tab_title));
+        adapter.addFragment(new LoggedInCarFragment(), getResources().getString(R.string.loggedinactivity_car_tab_title));
+        adapter.addFragment(new LoggedInServicesFragment(), getResources().getString(R.string.loggedinactivity_services_tab_title));
+
         viewPager.setAdapter(adapter);
     }
 }
