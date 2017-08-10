@@ -14,4 +14,5 @@
     <string name="loggedinactivity_user_tab_title">Profile</string>
     <string name="loggedinactivity_car_tab_title">Car</string>
     <string name="loggedinactivity_services_tab_title">Services</string>
+    <string name="loggedinactivity_user_tab_selectpicture">Select Picture</string>
 </resources>

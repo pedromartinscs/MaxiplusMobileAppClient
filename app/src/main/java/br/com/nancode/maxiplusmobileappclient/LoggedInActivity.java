@@ -1,26 +1,46 @@
 package br.com.nancode.maxiplusmobileappclient;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import it.sephiroth.android.library.exif2.ExifInterface;
+import it.sephiroth.android.library.exif2.ExifTag;
+
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.nancode.maxiplusmobileappclient.Model.logModel;
 import br.com.nancode.maxiplusmobileappclient.Repository.logRepository;
 import br.com.nancode.maxiplusmobileappclient.Repository.userRepository;
+import br.com.nancode.maxiplusmobileappclient.CircleImageView.CircleImageView;
+
 
 public class LoggedInActivity extends AppCompatActivity {
 
     private static final String TAG = "MainTabFragment";
+    private int PICK_IMAGE_REQUEST = 1;
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mviewPager;
 
@@ -39,6 +59,9 @@ public class LoggedInActivity extends AppCompatActivity {
         TabLayout.Tab tab = tabLayout.getTabAt(1);
         tab.select();
         tabLayout.bringToFront();
+        
+        CircleImageView CIV = (CircleImageView) findViewById(R.id.CircleImageViewUserPhoto);
+
 
 
         logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
@@ -93,6 +116,92 @@ public class LoggedInActivity extends AppCompatActivity {
 
         lR.Salvar(log);
     }
+
+    public void MudarFoto(View view) {
+        findViewById(R.id.CircleImageViewUserPhoto).setEnabled(false);
+        logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
+        logModel log = new logModel();
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        log.setEvento("Usuário pressinou botão para mudar foto de perfil");
+        log.setDate(df.format(c.getTime()));
+
+        lR.Salvar(log);
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.loggedinactivity_user_tab_selectpicture)), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        findViewById(R.id.CircleImageViewUserPhoto).setEnabled(true);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            //Verificou que a imagem foi escolhida com sucesso
+
+            Uri uri = data.getData(); //salva as informações da imagem no uri
+
+            try {
+                int width = MediaStore.Images.Media.getBitmap(getContentResolver(), uri).getWidth(); //coleta largura da imagem
+                int height = MediaStore.Images.Media.getBitmap(getContentResolver(), uri).getHeight(); //coleta altura da imagem
+                float ratioBitmap = (float) width / (float) height; //calcula proporção da imagem
+                if(ratioBitmap > 1){ //verifica se largura é maior que altura
+                    width = 320; //se for, limita largura
+                    height = (int)(320 / ratioBitmap); // e redimensiona altura na proporção correta
+                }
+                else{ //se não
+                    height = 320; //limita a altura
+                    width = (int)(320 * ratioBitmap); //e redimensiona a largura na proporção correta
+                }
+                CircleImageView CIV = (CircleImageView) findViewById(R.id.CircleImageViewUserPhoto);
+
+
+                ExifInterface exif = new ExifInterface(); //ATENÇÃO: EXIF DE BIBLIOTECA EXTERNA!!!
+                exif.readExif(getContentResolver().openInputStream(uri), ExifInterface.Options.OPTION_ALL);
+                ExifTag tag=exif.getTag(ExifInterface.TAG_ORIENTATION); //pega orientação da imagem
+                int orientation=(tag==null ? -1 : tag.getValueAsInt(-1));
+
+                switch (orientation) { //se imagem estiver rotacionada, corrige ela
+                    case 6: //90 graus
+                        CIV.setImageBitmap(rotateBitmap(Bitmap.createScaledBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), uri), width, height, true),90));
+                        break;
+                    case 3: //180 graus
+                        CIV.setImageBitmap(rotateBitmap(Bitmap.createScaledBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), uri), width, height, true),180));
+                        break;
+
+                    case 8: //270 graus
+                        CIV.setImageBitmap(rotateBitmap(Bitmap.createScaledBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), uri), width, height, true),270));
+                        break;
+                    default: //imagem correta
+                        CIV.setImageBitmap(Bitmap.createScaledBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), uri), width, height, true));
+                        break;
+                }
+                try {
+                    FileOutputStream fos =openFileOutput("FOTO_PERFIL", Context.MODE_PRIVATE);
+                    ((BitmapDrawable) CIV.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    fos.close();
+                } catch (FileNotFoundException e) {
+                    Log.d(TAG, "File not found: " + e.getMessage());
+                } catch (IOException e) {
+                    Log.d(TAG, "Error accessing file: " + e.getMessage());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());

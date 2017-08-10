@@ -5,13 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="195dp"
-        android:layout_height="179dp"
-        android:layout_marginLeft="16dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintLeft_toLeftOf="parent"
+    <br.com.nancode.maxiplusmobileappclient.CircleImageView.CircleImageView
+        android:id="@+id/CircleImageViewUserPhoto"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerInParent="true"
+        android:onClick="MudarFoto"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:civ_border_color="@color/cinza_texto"
+        app:civ_border_overlay="true"
+        app:civ_border_width="1dp"
         app:srcCompat="@android:drawable/ic_menu_gallery"
-        tools:layout_editor_absoluteY="41dp" />
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0" />
 </android.support.constraint.ConstraintLayout>
