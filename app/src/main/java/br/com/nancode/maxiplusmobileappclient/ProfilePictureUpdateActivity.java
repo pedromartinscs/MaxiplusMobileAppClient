@@ -1,7 +1,7 @@
 package br.com.nancode.maxiplusmobileappclient;
 
 /**
- * Created by martins on 21/07/2017.
+ * Created by martins on 11/08/2017.
  */
 
 import java.io.BufferedReader;
@@ -19,10 +19,10 @@ import android.os.AsyncTask;
 import br.com.nancode.maxiplusmobileappclient.Model.logModel;
 import br.com.nancode.maxiplusmobileappclient.Repository.logRepository;
 
-public class LogUpdateActivity extends AsyncTask<String, Void, String>{
+public class ProfilePictureUpdateActivity extends AsyncTask<String, Void, String>{
     private Activity activity;
 
-    public LogUpdateActivity(Activity activity) {
+    public ProfilePictureUpdateActivity(Activity activity) {
         this.activity = activity;
     }
 
@@ -33,14 +33,14 @@ public class LogUpdateActivity extends AsyncTask<String, Void, String>{
     @Override
     protected String doInBackground(String... params) {
         try{
-            String json = (String)params[0];
+            String image = (String)params[0];
             String id = (String)params[1];
             String login = (String)params[2];
             String pass = (String)params[3];
 
-            String link="http://www.maxiplusseguros.com.br/MaxiMobileWebServer/logUpdate.php";
-            String data  = URLEncoder.encode("json", "UTF-8") + "=" +
-                    URLEncoder.encode(json, "UTF-8");
+            String link="http://www.maxiplusseguros.com.br/MaxiMobileWebServer/pictureUpdate.php";
+            String data  = URLEncoder.encode("image", "UTF-8") + "=" +
+                    URLEncoder.encode(image, "UTF-8");
             data += "&" + URLEncoder.encode("id", "UTF-8") + "=" +
                     URLEncoder.encode(id, "UTF-8");
             data += "&" + URLEncoder.encode("login", "UTF-8") + "=" +
@@ -78,15 +78,11 @@ public class LogUpdateActivity extends AsyncTask<String, Void, String>{
     protected void onPostExecute(String result) {
         if(!result.equals("0")){
             logRepository lR = new logRepository(activity.getApplicationContext());
-            lR.DeletarTodos();
-        }
-        else{
-            logRepository lR = new logRepository(activity.getApplicationContext());
             logModel log = new logModel();
             Calendar c = Calendar.getInstance();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            log.setEvento("Falha ao atualizar logs");
+            log.setEvento("Usuário mudou a foto do perfil");
             log.setDate(df.format(c.getTime()));
 
             lR.Salvar(log);

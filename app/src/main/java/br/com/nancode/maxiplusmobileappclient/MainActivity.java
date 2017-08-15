@@ -7,6 +7,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,16 +38,9 @@ public class MainActivity extends AppCompatActivity {
         users = uR.SelecionarTodos();
         if(!users.isEmpty()) {
             user = users.get(0);
-            user.setData(df.format(c.getTime()));
-            uR.Atualizar(user);
-
-            Intent intent = new Intent(getBaseContext(), LoggedInActivity.class);
-            intent.putExtra("EXTRA_SESSION_LOGIN", user.getLogin());
-            intent.putExtra("EXTRA_SESSION_PASS", user.getSenha());
-            intent.putExtra("EXTRA_SESSION_ID_INTERNO", user.getID().toString());
-            intent.putExtra("EXTRA_SESSION_ID_EXTERNO", user.getId().toString());
-            intent.putExtra("EXTRA_SESSION_DATA", user.getData());
-
+            Intent intent = new Intent(this, LoadScreenLogin.class);
+            intent.putExtra("EXTRA_TESTE_LOGIN", user.getLogin());
+            intent.putExtra("EXTRA_TESTE_PASS", user.getSenha());
             startActivity(intent);
             finish();
         }

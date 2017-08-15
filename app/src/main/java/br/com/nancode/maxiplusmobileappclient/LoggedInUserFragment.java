@@ -1,6 +1,9 @@
 package br.com.nancode.maxiplusmobileappclient;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +11,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import br.com.nancode.maxiplusmobileappclient.CircleImageView.CircleImageView;
 
@@ -25,6 +32,18 @@ public class LoggedInUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_logged_in_user,container,false);
         CIV = (CircleImageView) view.findViewById(R.id.CircleImageViewUserPhoto);
+        if(savedInstanceState == null && savedState == null){
+            ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
+            File directory = cw.getDir("IMAGES", Context.MODE_PRIVATE);
+            File mypath=new File(directory,"FOTO_PERFIL");
+            if(mypath.exists()) {
+                try {
+                    CIV.setImageBitmap(BitmapFactory.decodeStream(new FileInputStream(mypath)));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         if(savedInstanceState != null && savedState == null) {
             savedState = savedInstanceState.getBundle("UserFragment");
         }

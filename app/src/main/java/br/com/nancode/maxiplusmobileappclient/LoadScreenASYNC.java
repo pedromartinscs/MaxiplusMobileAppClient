@@ -1,0 +1,112 @@
+package br.com.nancode.maxiplusmobileappclient;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import br.com.nancode.maxiplusmobileappclient.Model.logModel;
+import br.com.nancode.maxiplusmobileappclient.Model.userModel;
+import br.com.nancode.maxiplusmobileappclient.Repository.logRepository;
+import br.com.nancode.maxiplusmobileappclient.Repository.userRepository;
+
+/**
+ * Created by martins on 15/08/2017.
+ */
+
+public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
+    private Activity activity;
+    public LoadScreenASYNC(Activity activity) {
+        this.activity = activity;
+    }
+    @Override
+    protected String doInBackground(String... params) {
+        try{
+            String username = (String)params[0];
+            String password = (String)params[1];
+
+            String link="http://www.maxiplusseguros.com.br/MaxiMobileWebServer/login_existe.php";
+            String data  = URLEncoder.encode("user", "UTF-8") + "=" +
+                    URLEncoder.encode(username, "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" +
+                    URLEncoder.encode(password, "UTF-8");
+
+            URL url = new URL(link);
+            URLConnection conn = url.openConnection();
+
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+            wr.write( data );
+            wr.flush();
+
+            BufferedReader reader = new BufferedReader(new
+                    InputStreamReader(conn.getInputStream()));
+
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+
+            // Read Server Response
+            while((line = reader.readLine()) != null) {
+                sb.append(line);
+                break;
+            }
+            return sb.toString();
+        } catch(Exception e){
+            return new String("Exception: " + e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        if((!s.equals("0")) || (!s.equals(""))){
+            userRepository uR = new userRepository(activity.getApplicationContext());
+            List<userModel> users = new ArrayList<userModel>();
+            userModel user = new userModel();
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+            users = uR.SelecionarTodos();
+            user = users.get(0);
+            user.setData(df.format(c.getTime()));
+            uR.Atualizar(user);
+
+            Intent intent = new Intent(activity, LoggedInActivity.class);
+            intent.putExtra("EXTRA_SESSION_LOGIN", user.getLogin());
+            intent.putExtra("EXTRA_SESSION_PASS", user.getSenha());
+            intent.putExtra("EXTRA_SESSION_ID_INTERNO", user.getID().toString());
+            intent.putExtra("EXTRA_SESSION_ID_EXTERNO", user.getId().toString());
+            intent.putExtra("EXTRA_SESSION_DATA", user.getData());
+
+            activity.startActivity(intent);
+            activity.finish();
+        }
+        else{
+            userRepository uR = new userRepository(activity.getApplicationContext());
+            uR.LogOut();
+            logRepository lR = new logRepository(activity.getApplicationContext());
+            logModel log = new logModel();
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            log.setEvento("Falha ao tentar fazer login automaticamente");
+            log.setDate(df.format(c.getTime()));
+
+            lR.Salvar(log);
+            Intent intent = new Intent(activity, MainActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+        }
+    }
+}

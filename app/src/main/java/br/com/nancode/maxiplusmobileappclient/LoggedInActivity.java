@@ -1,6 +1,7 @@
 package br.com.nancode.maxiplusmobileappclient;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -15,12 +16,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -59,10 +62,6 @@ public class LoggedInActivity extends AppCompatActivity {
         TabLayout.Tab tab = tabLayout.getTabAt(1);
         tab.select();
         tabLayout.bringToFront();
-        
-        CircleImageView CIV = (CircleImageView) findViewById(R.id.CircleImageViewUserPhoto);
-
-
 
         logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
         List<logModel> logs = new ArrayList<logModel>();
@@ -159,7 +158,6 @@ public class LoggedInActivity extends AppCompatActivity {
                 }
                 CircleImageView CIV = (CircleImageView) findViewById(R.id.CircleImageViewUserPhoto);
 
-
                 ExifInterface exif = new ExifInterface(); //ATENÇÃO: EXIF DE BIBLIOTECA EXTERNA!!!
                 exif.readExif(getContentResolver().openInputStream(uri), ExifInterface.Options.OPTION_ALL);
                 ExifTag tag=exif.getTag(ExifInterface.TAG_ORIENTATION); //pega orientação da imagem
@@ -181,9 +179,22 @@ public class LoggedInActivity extends AppCompatActivity {
                         break;
                 }
                 try {
-                    FileOutputStream fos =openFileOutput("FOTO_PERFIL", Context.MODE_PRIVATE);
+                    ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                    // path to /data/data/yourapp/app_data/imageDir
+                    File directory = cw.getDir("IMAGES", Context.MODE_PRIVATE);
+                    // Create imageDir
+                    File mypath=new File(directory,"FOTO_PERFIL");
+                    FileOutputStream fos = new FileOutputStream(mypath);
                     ((BitmapDrawable) CIV.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, fos);
                     fos.close();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ((BitmapDrawable) CIV.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                    byte[] b = baos.toByteArray();
+                    String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                    String id = getIntent().getStringExtra("EXTRA_SESSION_ID_EXTERNO");
+                    String user = getIntent().getStringExtra("EXTRA_SESSION_LOGIN");
+                    String pass = getIntent().getStringExtra("EXTRA_SESSION_PASS");
+                    new ProfilePictureUpdateActivity(LoggedInActivity.this).execute(encodedImage, id, user, pass);
                 } catch (FileNotFoundException e) {
                     Log.d(TAG, "File not found: " + e.getMessage());
                 } catch (IOException e) {
