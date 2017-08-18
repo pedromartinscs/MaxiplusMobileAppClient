@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -70,27 +73,34 @@ public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         if((!s.equals("0")) || (!s.equals(""))){
-            userRepository uR = new userRepository(activity.getApplicationContext());
-            List<userModel> users = new ArrayList<userModel>();
-            userModel user = new userModel();
-            Calendar c = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                JSONObject jObject = new JSONObject(s);
+                userRepository uR = new userRepository(activity.getApplicationContext());
+                List<userModel> users = new ArrayList<userModel>();
+                userModel user = new userModel();
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+                users = uR.SelecionarTodos();
+                user = users.get(0);
+                user.setData(df.format(c.getTime()));
+                uR.Atualizar(user);
 
-            users = uR.SelecionarTodos();
-            user = users.get(0);
-            user.setData(df.format(c.getTime()));
-            uR.Atualizar(user);
-
-            Intent intent = new Intent(activity, LoggedInActivity.class);
-            intent.putExtra("EXTRA_SESSION_LOGIN", user.getLogin());
-            intent.putExtra("EXTRA_SESSION_PASS", user.getSenha());
-            intent.putExtra("EXTRA_SESSION_ID_INTERNO", user.getID().toString());
-            intent.putExtra("EXTRA_SESSION_ID_EXTERNO", user.getId().toString());
-            intent.putExtra("EXTRA_SESSION_DATA", user.getData());
-
-            activity.startActivity(intent);
-            activity.finish();
+                Intent intent = new Intent(activity, LoggedInActivity.class);
+                intent.putExtra("EXTRA_SESSION_LOGIN", user.getLogin());
+                intent.putExtra("EXTRA_SESSION_PASS", user.getSenha());
+                intent.putExtra("EXTRA_SESSION_ID_INTERNO", user.getID().toString());
+                intent.putExtra("EXTRA_SESSION_ID_EXTERNO", user.getId().toString());
+                intent.putExtra("EXTRA_SESSION_DATA", user.getData());
+                intent.putExtra("EXTRA_SESSION_EMAIL", jObject.getString("us_email"));
+                intent.putExtra("EXTRA_SESSION_PONTOS", jObject.getInt("us_pontos"));
+                intent.putExtra("EXTRA_SESSION_CPF", jObject.getString("us_cpf"));
+                intent.putExtra("EXTRA_SESSION_NOME", jObject.getString("us_nome"));
+                activity.startActivity(intent);
+                activity.finish();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         else{
             userRepository uR = new userRepository(activity.getApplicationContext());
@@ -104,6 +114,13 @@ public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
             log.setDate(df.format(c.getTime()));
 
             lR.Salvar(log);
+            synchronized(this){
+                try {
+                    this.wait(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             Intent intent = new Intent(activity, MainActivity.class);
             activity.startActivity(intent);
             activity.finish();

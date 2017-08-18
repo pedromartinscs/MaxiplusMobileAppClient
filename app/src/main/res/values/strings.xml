@@ -14,6 +14,11 @@
     <string name="loggedinactivity_car_tab_title">Car</string>
     <string name="loggedinactivity_services_tab_title">Services</string>
     <string name="loggedinactivity_user_tab_selectpicture">Select Picture</string>
+    <string name="loggedinactivity_user_tab_name">Name:</string>
+    <string name="loggedinactivity_user_tab_login">Login:</string>
+    <string name="loggedinactivity_user_tab_CPF">CPF:</string>
+    <string name="loggedinactivity_user_tab_email">Email:</string>
+    <string name="loggedinactivity_user_tab_pontosmaxi">Maxiplus Points:</string>
 
     <!-- Strings related to login -->
 </resources>

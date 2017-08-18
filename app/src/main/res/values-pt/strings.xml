@@ -5,7 +5,7 @@
     <string name="mainactivity_edit_login">login</string>
     <string name="mainactivity_edit_pass">senha</string>
     <string name="mainactivity_button">Entrar</string>
-    <string name="mainactivity_new_customer">Cliente novo? Clique aqui para inscrever-se.</string>
+    <string name="mainactivity_new_customer">Cliente novo? Clique aqui e cadastre-se.</string>
     <string name="mainactivity_try_login">Tentando fazer login...</string>
     <string name="mainactivity_error_login">Desculpe-nos. Ocorreu um erro durante o login, tente novamente mais tarde.</string>
     <string name="mainactivity_success_login">Bem-vindo!</string>
@@ -15,4 +15,9 @@
     <string name="loggedinactivity_car_tab_title">Automóvel</string>
     <string name="loggedinactivity_services_tab_title">Serviços</string>
     <string name="loggedinactivity_user_tab_selectpicture">Selecione a foto</string>
+    <string name="loggedinactivity_user_tab_name">Nome:</string>
+    <string name="loggedinactivity_user_tab_login">Login:</string>
+    <string name="loggedinactivity_user_tab_CPF">CPF:</string>
+    <string name="loggedinactivity_user_tab_email">Email:</string>
+    <string name="loggedinactivity_user_tab_pontosmaxi">Pontos Maxiplus:</string>
 </resources>

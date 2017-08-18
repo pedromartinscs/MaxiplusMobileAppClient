@@ -15,4 +15,9 @@
     <string name="loggedinactivity_car_tab_title">Automóvil</string>
     <string name="loggedinactivity_services_tab_title">Servicios</string>
     <string name="loggedinactivity_user_tab_selectpicture">Selecciona la imagen</string>
+    <string name="loggedinactivity_user_tab_name">Nombre:</string>
+    <string name="loggedinactivity_user_tab_login">Usuario:</string>
+    <string name="loggedinactivity_user_tab_CPF">NIF:</string>
+    <string name="loggedinactivity_user_tab_email">E-mail:</string>
+    <string name="loggedinactivity_user_tab_pontosmaxi">Puntos Maxiplus:</string>
 </resources>

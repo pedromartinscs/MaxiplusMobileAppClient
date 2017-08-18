@@ -5,26 +5,181 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <br.com.nancode.maxiplusmobileappclient.CircleImageView.CircleImageView
-        android:id="@+id/CircleImageViewUserPhoto"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_centerInParent="true"
-        android:onClick="MudarFoto"
-        android:scaleType="centerCrop"
-        android:visibility="visible"
-        app:civ_border_color="@color/cinza_texto"
-        app:civ_border_overlay="true"
-        app:civ_border_width="1dp"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:scrollbarStyle="outsideOverlay"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                android:onClick="logOut"
+                android:text="@string/loggedinactivity_logout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button3"
+                tools:text="@string/loggedinactivity_logout" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                android:text="Button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/colorPrimary"
+                android:text="Button"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textViewPontos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="0dp"
+                android:text="0"
+                android:textColor="@color/colorAccent"
+                android:textSize="42sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintLeft_toRightOf="@+id/textView11"
+                app:layout_constraintTop_toTopOf="@+id/textView11"
+                app:layout_constraintVertical_bias="0.5"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/loggedinactivity_user_tab_pontosmaxi"
+                android:textColor="@color/cinza_texto"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CircleImageViewUserPhoto"
+                tools:text="@string/loggedinactivity_user_tab_pontosmaxi" />
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="left|clip_horizontal"
+                android:hyphenationFrequency="full"
+                android:inputType="textMultiLine"
+                android:maxLines="2"
+                android:text="TextView"
+                android:textAlignment="gravity"
+                android:textDirection="ltr"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/CircleImageViewUserPhoto"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCPF" />
+
+            <TextView
+                android:id="@+id/textViewCPF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/CircleImageViewUserPhoto"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
+
+            <TextView
+                android:id="@+id/textViewLogin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/CircleImageViewUserPhoto"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+
+            <TextView
+                android:id="@+id/textViewNome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:gravity="left|clip_horizontal"
+                android:hyphenationFrequency="full"
+                android:inputType="text|textMultiLine"
+                android:maxLines="2"
+                android:text="TextView"
+                android:textAlignment="gravity"
+                android:textDirection="ltr"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/CircleImageViewUserPhoto"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <br.com.nancode.maxiplusmobileappclient.CircleImageView.CircleImageView
+                android:id="@+id/CircleImageViewUserPhoto"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:onClick="MudarFoto"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                app:civ_border_color="@color/cinza_texto"
+                app:civ_border_overlay="true"
+                app:civ_border_width="1dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

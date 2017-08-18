@@ -107,6 +107,10 @@ public class SigninActivity extends AsyncTask<String, Void, String>{
                     intent.putExtra("EXTRA_SESSION_ID_INTERNO", UserModel.getID().toString());
                     intent.putExtra("EXTRA_SESSION_ID_EXTERNO", UserModel.getId().toString());
                     intent.putExtra("EXTRA_SESSION_DATA", UserModel.getData());
+                    intent.putExtra("EXTRA_SESSION_EMAIL", jObject.getString("us_email"));
+                    intent.putExtra("EXTRA_SESSION_PONTOS", jObject.getInt("us_pontos"));
+                    intent.putExtra("EXTRA_SESSION_CPF", jObject.getString("us_cpf"));
+                    intent.putExtra("EXTRA_SESSION_NOME", jObject.getString("us_nome"));
                     activity.startActivity(intent);
                     activity.finish();
                 }
