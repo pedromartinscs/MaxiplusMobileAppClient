@@ -37,8 +37,14 @@ public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
         try{
             String username = (String)params[0];
             String password = (String)params[1];
-
-            String link="http://www.maxiplusseguros.com.br/MaxiMobileWebServer/login_existe.php";
+            String type = (String)params[2];
+            String link = "";
+            if(type.equals("auto")) {
+                link = "http://www.maxiplusseguros.com.br/MaxiMobileWebServer/login_existe.php";
+            }
+            else{
+                link = "http://www.maxiplusseguros.com.br/MaxiMobileWebServer/login.php";
+            }
             String data  = URLEncoder.encode("user", "UTF-8") + "=" +
                     URLEncoder.encode(username, "UTF-8");
             data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" +
@@ -82,9 +88,21 @@ public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                 users = uR.SelecionarTodos();
-                user = users.get(0);
-                user.setData(df.format(c.getTime()));
-                uR.Atualizar(user);
+                if(!users.isEmpty()) {
+                    user = users.get(0);
+                    user.setData(df.format(c.getTime()));
+                    uR.Atualizar(user);
+                }
+                else{
+                    user.setLogin(jObject.getString("us_login"));
+                    user.setSenha(jObject.getString("us_pass"));
+                    user.setId(jObject.getInt("us_ID"));
+                    user.setData(df.format(c.getTime()));
+                    uR.Salvar(user);
+                    users = uR.SelecionarTodos();
+                    user = users.get(0);
+                }
+
 
                 Intent intent = new Intent(activity, LoggedInActivity.class);
                 intent.putExtra("EXTRA_SESSION_LOGIN", user.getLogin());

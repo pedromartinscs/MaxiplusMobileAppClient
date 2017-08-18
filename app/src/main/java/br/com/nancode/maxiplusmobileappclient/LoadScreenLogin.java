@@ -12,6 +12,7 @@ public class LoadScreenLogin extends AppCompatActivity {
 
         String user = getIntent().getStringExtra("EXTRA_TESTE_LOGIN");
         String pass = getIntent().getStringExtra("EXTRA_TESTE_PASS");
-        new LoadScreenASYNC(LoadScreenLogin.this).execute(user, pass);
+        String tipo = getIntent().getStringExtra("EXTRA_TESTE_TIPO");
+        new LoadScreenASYNC(LoadScreenLogin.this).execute(user, pass, tipo);
     }
 }

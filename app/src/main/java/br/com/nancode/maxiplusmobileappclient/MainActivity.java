@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        setContentView(R.layout.activity_main);
 
         userRepository uR = new userRepository(MainActivity.this.getApplicationContext());
         List<userModel> users = new ArrayList<userModel>();
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoadScreenLogin.class);
             intent.putExtra("EXTRA_TESTE_LOGIN", user.getLogin());
             intent.putExtra("EXTRA_TESTE_PASS", user.getSenha());
+            intent.putExtra("EXTRA_TESTE_TIPO", "auto");
             startActivity(intent);
             finish();
         }
@@ -60,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         String login = loginEdit.getText().toString();
         String senha = senhaEdit.getText().toString();
 
-        TextView status = (TextView) findViewById(R.id.textView);
-
-        /* Valida usuário e senha */
-        new SigninActivity(status, MainActivity.this).execute(login, senha);
+        Intent intent = new Intent(this, LoadScreenLogin.class);
+        intent.putExtra("EXTRA_TESTE_LOGIN", login);
+        intent.putExtra("EXTRA_TESTE_PASS", senha);
+        intent.putExtra("EXTRA_TESTE_TIPO", "manual");
+        startActivity(intent);
+        finish();
     }
 
 }
