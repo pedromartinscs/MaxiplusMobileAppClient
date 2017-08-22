@@ -5,7 +5,7 @@
     <string name="mainactivity_edit_login">login</string>
     <string name="mainactivity_edit_pass">password</string>
     <string name="mainactivity_button">Sign in</string>
-    <string name="mainactivity_new_customer">New member? Click here to sign up.</string>
+    <string name="mainactivity_new_customer">New member? <u>Click here</u> to sign up.</string>
     <string name="mainactivity_try_login">Trying to sign in...</string>
     <string name="mainactivity_error_login">We are sorry. An error occurred during sign in, try again later.</string>
     <string name="mainactivity_success_login">Welcome!</string>

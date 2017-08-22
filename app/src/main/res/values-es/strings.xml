@@ -5,7 +5,7 @@
     <string name="mainactivity_edit_login">usuario</string>
     <string name="mainactivity_edit_pass">contraseña</string>
     <string name="mainactivity_button">Iniciar sesión</string>
-    <string name="mainactivity_new_customer">¿Nuevo cliente? Haga clic aquí para inscribirse.</string>
+    <string name="mainactivity_new_customer">¿Nuevo cliente? Haga <u>clic aquí</u> para inscribirse.</string>
     <string name="mainactivity_try_login">Intentando iniciar sesión...</string>
     <string name="mainactivity_error_login">Lo sentimos. Ocurrio un error durante el inicio de sesión, vuelva a intentarlo más tarde.</string>
     <string name="mainactivity_success_login">¡Bienvenido!</string>
