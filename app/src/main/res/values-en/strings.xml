@@ -20,4 +20,11 @@
     <string name="loggedinactivity_user_tab_CPF">SSN:</string>
     <string name="loggedinactivity_user_tab_email">Email:</string>
     <string name="loggedinactivity_user_tab_pontosmaxi">Maxiplus Points:</string>
+    <string name="signupactivity_edit_name">Name</string>
+    <string name="signupactivity_edit_email">Email</string>
+    <string name="signupactivity_edit_CPF">SSN</string>
+    <string name="signupactivity_edit_login">Login</string>
+    <string name="signupactivity_edit_password">Password 8 digits</string>
+    <string name="signupactivity_edit_passconf">Confirm password</string>
+    <string name="signupactivity_button_signup">Sign Up</string>
 </resources>

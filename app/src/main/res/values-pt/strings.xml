@@ -20,4 +20,11 @@
     <string name="loggedinactivity_user_tab_CPF">CPF:</string>
     <string name="loggedinactivity_user_tab_email">Email:</string>
     <string name="loggedinactivity_user_tab_pontosmaxi">Pontos Maxiplus:</string>
+    <string name="signupactivity_edit_name">Nome</string>
+    <string name="signupactivity_edit_email">Email</string>
+    <string name="signupactivity_edit_CPF">CPF</string>
+    <string name="signupactivity_edit_login">Login</string>
+    <string name="signupactivity_edit_password">Senha de 8 dígitos</string>
+    <string name="signupactivity_edit_passconf">Confirmar senha</string>
+    <string name="signupactivity_button_signup">Cadastrar</string>
 </resources>
