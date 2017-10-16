@@ -27,4 +27,7 @@
     <string name="signupactivity_edit_password">Senha de 8 dígitos</string>
     <string name="signupactivity_edit_passconf">Confirmar senha</string>
     <string name="signupactivity_button_signup">Cadastrar</string>
+    <string name="signupactivity_warning_fields">Preencha todos os campos do formulário primeiro</string>
+    <string name="signupactivity_warning_pass_size">Senha precisa ter 8 dígitos</string>
+    <string name="signupactivity_warning_passconf">A senha deve ser confirmada corretamente</string>
 </resources>

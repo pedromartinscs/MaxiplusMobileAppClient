@@ -26,6 +26,9 @@
     <string name="signupactivity_edit_password">Password 8 digits</string>
     <string name="signupactivity_edit_passconf">Confirm password</string>
     <string name="signupactivity_button_signup">Sign Up</string>
+    <string name="signupactivity_warning_fields">Please fill in all fields first</string>
+    <string name="signupactivity_warning_pass_size">Password must be 8 digits</string>
+    <string name="signupactivity_warning_passconf">Password must be confirmed correctly</string>
 
     <!-- Strings related to login -->
 </resources>

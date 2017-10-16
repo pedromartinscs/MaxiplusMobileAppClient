@@ -90,6 +90,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
+        android:onClick="signUpForm"
         android:text="@string/mainactivity_new_customer"
         android:textColor="@android:color/white"
         android:textSize="18sp"

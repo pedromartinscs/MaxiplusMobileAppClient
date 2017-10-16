@@ -27,4 +27,7 @@
     <string name="signupactivity_edit_password">Contraseña 8 dígitos</string>
     <string name="signupactivity_edit_passconf">Confirmar contraseña</string>
     <string name="signupactivity_button_signup">Suscribirse</string>
+    <string name="signupactivity_warning_fields">Rellene todos los campos del formulario primero</string>
+    <string name="signupactivity_warning_pass_size">Contraseña debe tener 8 dígitos</string>
+    <string name="signupactivity_warning_passconf">La contraseña debe ser confirmada correctamente</string>
 </resources>

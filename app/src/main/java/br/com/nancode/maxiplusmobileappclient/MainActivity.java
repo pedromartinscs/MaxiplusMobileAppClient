@@ -64,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void signUpForm(View view){
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

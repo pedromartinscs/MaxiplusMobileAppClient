@@ -105,6 +105,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     public void AbrirChat(View view) {
+        //TODO: fazer função de comunicação via chat
         logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
         logModel log = new logModel();
         Calendar c = Calendar.getInstance();

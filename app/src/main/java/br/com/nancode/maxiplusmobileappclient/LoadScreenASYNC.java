@@ -78,7 +78,7 @@ public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        if((!s.equals("0")) || (!s.equals(""))){
+        if(((!s.equals("0")) && (!s.equals(""))) && (!s.equals("-1"))){ //-1 significa que email não foi confirmado
             try {
                 JSONObject jObject = new JSONObject(s);
                 userRepository uR = new userRepository(activity.getApplicationContext());
@@ -121,6 +121,7 @@ public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
             }
         }
         else{
+            //TODO: verificar se login falhou porque email não foi confirmado e informar msg avisando
             userRepository uR = new userRepository(activity.getApplicationContext());
             uR.LogOut();
             logRepository lR = new logRepository(activity.getApplicationContext());
