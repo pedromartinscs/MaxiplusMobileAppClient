@@ -5,6 +5,8 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+
+import br.com.nancode.maxiplusmobileappclient.Model.userModel;
 import it.sephiroth.android.library.exif2.ExifInterface;
 import it.sephiroth.android.library.exif2.ExifTag;
 
@@ -19,6 +21,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,7 +108,6 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     public void AbrirChat(View view) {
-        //TODO: fazer função de comunicação via chat
         logRepository lR = new logRepository(LoggedInActivity.this.getApplicationContext());
         logModel log = new logModel();
         Calendar c = Calendar.getInstance();
@@ -115,6 +117,29 @@ public class LoggedInActivity extends AppCompatActivity {
         log.setDate(df.format(c.getTime()));
 
         lR.Salvar(log);
+
+        userRepository uR = new userRepository(LoggedInActivity.this.getApplicationContext());
+        List<userModel> users = new ArrayList<userModel>();
+        userModel user = new userModel();
+
+        users = uR.SelecionarTodos();
+        if(!users.isEmpty()) {
+            user = users.get(0);
+            Intent intent = new Intent(this, ChatActivity.class);
+            intent.putExtra("EXTRA_SESSION_LOGIN", user.getLogin());
+            intent.putExtra("EXTRA_SESSION_PASS", user.getSenha());
+            intent.putExtra("EXTRA_SESSION_ID_INTERNO", user.getID().toString());
+            intent.putExtra("EXTRA_SESSION_ID_EXTERNO", user.getId().toString());
+            intent.putExtra("EXTRA_SESSION_DATA", user.getData());
+            intent.putExtra("EXTRA_SESSION_EMAIL", getIntent().getStringExtra("EXTRA_SESSION_EMAIL"));
+            intent.putExtra("EXTRA_SESSION_PONTOS", getIntent().getStringExtra("EXTRA_SESSION_PONTOS"));
+            intent.putExtra("EXTRA_SESSION_CPF", getIntent().getStringExtra("EXTRA_SESSION_CPF"));
+            intent.putExtra("EXTRA_SESSION_NOME", getIntent().getStringExtra("EXTRA_SESSION_NOME"));
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this,R.string.loggedinactivity_chat_fail,Toast.LENGTH_LONG).show();
+        }
     }
 
     public void MudarFoto(View view) {

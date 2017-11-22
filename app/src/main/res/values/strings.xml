@@ -29,6 +29,13 @@
     <string name="signupactivity_warning_fields">Please fill in all fields first</string>
     <string name="signupactivity_warning_pass_size">Password must be 8 digits</string>
     <string name="signupactivity_warning_passconf">Password must be confirmed correctly</string>
+    <string name="loggedinactivity_car_tab_insurances">Insurances</string>
+    <string name="loadscreen_email_notification">Email not confirmed yet! Please check your inbox.</string>
+    <string name="loggedinactivity_car_tab_quotes">Ask for quotation</string>
+    <string name="loggedinactivity_car_tab_sinistro">Report a car crash or theft</string>
+    <string name="loggedinactivity_car_tab_acompanhar">Follow insurance claim progress</string>
+    <string name="chatactivity_not_sent">Error! Message not sent!</string>
+    <string name="loggedinactivity_chat_fail">Failed to open chat!</string>
 
     <!-- Strings related to login -->
 </resources>

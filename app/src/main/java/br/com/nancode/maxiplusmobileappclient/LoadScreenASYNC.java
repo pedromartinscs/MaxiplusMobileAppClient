@@ -3,6 +3,7 @@ package br.com.nancode.maxiplusmobileappclient;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -121,7 +122,9 @@ public class LoadScreenASYNC extends AsyncTask<String, Void, String> {
             }
         }
         else{
-            //TODO: verificar se login falhou porque email não foi confirmado e informar msg avisando
+            if(s.equals("-1")) { //Verifica se email não foi confirmado e informa usuário
+                Toast.makeText(activity, R.string.loadscreen_email_notification, Toast.LENGTH_LONG).show();
+            }
             userRepository uR = new userRepository(activity.getApplicationContext());
             uR.LogOut();
             logRepository lR = new logRepository(activity.getApplicationContext());

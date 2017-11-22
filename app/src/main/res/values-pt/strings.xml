@@ -30,4 +30,11 @@
     <string name="signupactivity_warning_fields">Preencha todos os campos do formulário primeiro</string>
     <string name="signupactivity_warning_pass_size">Senha precisa ter 8 dígitos</string>
     <string name="signupactivity_warning_passconf">A senha deve ser confirmada corretamente</string>
+    <string name="loggedinactivity_car_tab_insurances">Minhas Apólices</string>
+    <string name="loadscreen_email_notification">Email ainda não foi confirmado! Confira sua caixa de entrada, por favor.</string>
+    <string name="loggedinactivity_car_tab_quotes">Faça uma cotação</string>
+    <string name="loggedinactivity_car_tab_sinistro">Relatar acidente ou roubo</string>
+    <string name="loggedinactivity_car_tab_acompanhar">Acompanhar andamento do sinistro</string>
+    <string name="chatactivity_not_sent">Erro! Menssagem não enviada!</string>
+    <string name="loggedinactivity_chat_fail">Falha ao tentar abrir bate-papo!</string>
 </resources>
